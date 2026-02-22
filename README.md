@@ -45,7 +45,7 @@ Create a `.env` file:
 PORT=3100
 
 # OpenClaw Gateway (internal/VPN address — NOT public)
-OPENCLAW_URL=http://10.20.0.5:18789
+OPENCLAW_URL=http://10.x.x.x:18789
 
 # OpenClaw Gateway auth token (from openclaw.json gateway.auth.token)
 OPENCLAW_TOKEN=your_openclaw_gateway_token
