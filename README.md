@@ -57,7 +57,27 @@ APP_TOKENS=token1,token2,token3
 # Allowed agents (comma-separated)
 # Leave empty to allow all agents
 ALLOWED_AGENTS=main,cs-indonesia,cs-international
+
+# Speech-to-Text (STT) Provider
+# Options: groq | google | openai
+STT_PROVIDER=groq
+STT_API_KEY=your_groq_api_key
+
+# Text-to-Speech (TTS) - uses Google (same key as TTS)
+GOOGLE_API_KEY=your_google_api_key
 ```
+
+### STT Setup (Required for voice messages)
+
+The relay supports 3 STT providers:
+
+| Provider | Setup | Cost | Quality | Speed |
+|----------|-------|------|---------|-------|
+| **Groq** (recommended) | Get free API key at [console.groq.com](https://console.groq.com/keys) | Free tier (no CC) | Excellent | Very fast |
+| **Google** | Enable [Speech-to-Text API](https://console.cloud.google.com/apis/api/speech.googleapis.com) | ~$0.024/min | Excellent | Fast |
+| **OpenAI** | Get API key at [platform.openai.com](https://platform.openai.com/api-keys) | $0.006/min | Good | Fast |
+
+**Recommended: Groq** — free tier, no credit card required, Whisper-large-v3 model.
 
 ## API Endpoints
 
@@ -120,6 +140,42 @@ Content-Type: application/json
   ]
 }
 ```
+
+### Speech-to-Text (Voice → Text)
+```
+POST /v1/stt
+Authorization: Bearer <app_token>
+Content-Type: multipart/form-data
+
+Form fields:
+- audio: <audio file> (M4A, MP3, OGG, WAV)
+- language: id (optional, default: id)
+```
+
+Transcribes voice message to text. Returns:
+```json
+{
+  "transcript": "Hello, this is a test",
+  "confidence": 0.95,
+  "language": "id",
+  "provider": "groq"
+}
+```
+
+### Text-to-Speech (Text → Voice)
+```
+POST /v1/tts
+Authorization: Bearer <app_token>
+Content-Type: application/json
+
+{
+  "text": "Hello, how can I help?",
+  "language": "id-ID",
+  "voice": "id-ID-Chirp3-HD-Puck"
+}
+```
+
+Returns audio file (OGG Opus format) for voice message playback.
 
 ## Deployment
 
