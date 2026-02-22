@@ -1,0 +1,21 @@
+{
+  "name": "clawtalk-server",
+  "version": "1.0.0",
+  "description": "Lightweight relay server for ClawTalk mobile apps — proxies chat requests to OpenClaw Gateway without exposing it publicly",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
